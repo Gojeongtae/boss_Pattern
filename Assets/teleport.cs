@@ -6,8 +6,16 @@ public class teleport : MonoBehaviour
 {
 
     private bool canTeleport = true;
-    public GameObject portalA;
-    public GameObject portalB;
+    public GameObject portalRED;
+    public GameObject portalred;
+    public GameObject portalBLUE;
+    public GameObject portalblue;
+    public GameObject portalYELLOW;
+    public GameObject portalyellow;
+    public GameObject portalGREEN;
+    public GameObject portalgreen;
+    public GameObject portalPURPLE;
+    public GameObject portalpurple;
 
 
     // Start is called before the first frame update
@@ -32,19 +40,61 @@ public class teleport : MonoBehaviour
                 Debug.Log("aa");
             switch (gameObject.name)
             {
-                case "portalA":
-                    Debug.Log("Teleporting from A to B");
-                    other.transform.position = portalB.transform.position;
+                case "portalRED":
+                    Debug.Log("Teleporting from RED to red");
+                    other.transform.position = portalred.transform.position;
                     StartCoroutine(TeleportCooldown());
                     break;
 
-                case "portalB":
-                    Debug.Log("Teleporting from B to A");
-                    other.transform.position = portalA.transform.position;
+                case "portalred":
+                    Debug.Log("Teleporting from red to RED");
+                    other.transform.position = portalRED.transform.position;
                     StartCoroutine(TeleportCooldown());
                     break;
+                case "portalBLUE":
+                        Debug.Log("Teleporting from BLUE to blue");
+                        other.transform.position = portalblue.transform.position;
+                        StartCoroutine(TeleportCooldown());
+                        break;
+                case "portalblue":
+                        Debug.Log("Teleporting from blue to BLUE");
+                        other.transform.position = portalBLUE.transform.position;
+                        StartCoroutine(TeleportCooldown());
+                        break;
+                case "portalYellow":
+                        Debug.Log("Teleporting from YELLOW to yellow");
+                        other.transform.position = portalyellow.transform.position;
+                        StartCoroutine(TeleportCooldown());
+                        break;
+                    case "portalyellow":
+                        Debug.Log("Teleporting from yellow to YELLOW");
+                        other.transform.position = portalYELLOW.transform.position;
+                        StartCoroutine(TeleportCooldown());
+                        break;
+                    case "portalGREEN":
+                        Debug.Log("Teleporting from GREEN to green");
+                        other.transform.position = portalgreen.transform.position;
+                        StartCoroutine(TeleportCooldown());
+                        break;
+                    case "portalgreen":
+                        Debug.Log("Teleporting from green to GREEN");
+                        other.transform.position = portalgreen.transform.position;
+                        StartCoroutine(TeleportCooldown());
+                        break;
+                    case "portalPURPLE":
+                        Debug.Log("Teleporting from PURPLE to purple");
+                        other.transform.position = portalpurple.transform.position;
+                        StartCoroutine(TeleportCooldown());
+                        break;
+                    case "portalpurple":
+                        Debug.Log("Teleporting from purple to PURPLE");
+                        other.transform.position = portalPURPLE.transform.position;
+                        StartCoroutine(TeleportCooldown());
+                        break;
+
+
+                }
             }
-        }
         }
 
     }
