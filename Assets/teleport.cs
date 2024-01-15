@@ -36,7 +36,7 @@ public class teleport : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("aa");
+                //Debug.Log("aa");
 
                 switch (gameObject.name)
                 {
@@ -53,7 +53,7 @@ public class teleport : MonoBehaviour
                                 Player.GetComponent<Player>().uImanager.Qchange(true);
                             }
 
-                            Debug.Log(Player.GetComponent<Player>().QCount);
+                            //Debug.Log(Player.GetComponent<Player>().QCount);
                             StartCoroutine(TeleportCooldown("Red", Player.GetComponent<Player>()));
                         }
                         break;
@@ -69,7 +69,7 @@ public class teleport : MonoBehaviour
                                 Player.GetComponent<Player>().uImanager.Qchange(true);
                             }
 
-                            Debug.Log(Player.GetComponent<Player>().QCount);
+                            //Debug.Log(Player.GetComponent<Player>().QCount);
                             StartCoroutine(TeleportCooldown("Red", Player.GetComponent<Player>()));
                         }
                         break;
@@ -87,7 +87,7 @@ public class teleport : MonoBehaviour
                                 Player.GetComponent<Player>().uImanager.Wchange(true);
                             }
 
-                            Debug.Log(Player.GetComponent<Player>().WCount);
+                            //Debug.Log(Player.GetComponent<Player>().WCount);
                             StartCoroutine(TeleportCooldown("Blue", Player.GetComponent<Player>()));
                         }
                         break;
@@ -105,7 +105,7 @@ public class teleport : MonoBehaviour
                                 Player.GetComponent<Player>().uImanager.Wchange(true);
                             }
 
-                            Debug.Log(Player.GetComponent<Player>().WCount);
+                            //Debug.Log(Player.GetComponent<Player>().WCount);
                             StartCoroutine(TeleportCooldown("Blue", Player.GetComponent<Player>()));
                         }
                         break;
@@ -123,7 +123,7 @@ public class teleport : MonoBehaviour
                                 Player.GetComponent<Player>().uImanager.Echange(true);
                             }
 
-                            Debug.Log(Player.GetComponent<Player>().ECount);
+                            //Debug.Log(Player.GetComponent<Player>().ECount);
                             StartCoroutine(TeleportCooldown("Yellow", Player.GetComponent<Player>()));
                         }
                         break;
@@ -141,7 +141,7 @@ public class teleport : MonoBehaviour
                                 Player.GetComponent<Player>().uImanager.Echange(true);
                             }
 
-                            Debug.Log(Player.GetComponent<Player>().ECount);
+                            //Debug.Log(Player.GetComponent<Player>().ECount);
                             StartCoroutine(TeleportCooldown("Yellow", Player.GetComponent<Player>()));
                         }
                         break;
@@ -159,7 +159,7 @@ public class teleport : MonoBehaviour
                                 Player.GetComponent<Player>().uImanager.Rchange(true);
                             }
 
-                            Debug.Log(Player.GetComponent<Player>().RCount);
+                            //Debug.Log(Player.GetComponent<Player>().RCount);
                             StartCoroutine(TeleportCooldown("Green", Player.GetComponent<Player>()));
                         }
                         break;
@@ -177,7 +177,7 @@ public class teleport : MonoBehaviour
                                 Player.GetComponent<Player>().uImanager.Rchange(true);
                             }
 
-                            Debug.Log(Player.GetComponent<Player>().RCount);
+                            //Debug.Log(Player.GetComponent<Player>().RCount);
                             StartCoroutine(TeleportCooldown("Green", Player.GetComponent<Player>()));
                         }
                         break;

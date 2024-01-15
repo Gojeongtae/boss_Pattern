@@ -10,6 +10,7 @@ public class BulletManager : MonoBehaviour
     public GameObject PrefabW;
     public GameObject PrefabE;
     public GameObject PrefabR;
+    public GameObject PrefabV;
 
     public Transform spawnPos;
 
@@ -56,6 +57,12 @@ public class BulletManager : MonoBehaviour
     {
         GameObject bullet = Instantiate(PrefabR, spawnPos.position, Quaternion.identity);
         bullet.GetComponent<Bullet>().damage = 100; //R스킬 데미지
+    }
+
+    public void SkillV()
+    {
+        GameObject bullet = Instantiate(PrefabV, spawnPos.position, Quaternion.identity);
+        bullet.GetComponent<Bullet>().damage = 200; //V스킬 데미지
     }
 
 }

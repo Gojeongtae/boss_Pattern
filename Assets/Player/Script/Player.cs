@@ -33,6 +33,10 @@ public class Player : MonoBehaviour
     public int WCount = 0;
     public int ECount = 0;
     public int RCount = 0;
+    public int VCountQ = 0;
+    public int VCountW = 0;
+    public int VCountE = 0;
+    public int VCountR = 0;
 
     //포탈별 쿨타임 갖고있도록
     public bool RedCooltime = true;
@@ -95,6 +99,12 @@ public class Player : MonoBehaviour
             anim.SetBool("isShooting", true);
             QCount = 0; //횟수 0으로 만들어주기
             uImanager.Qchange(false); //UIManager에서 아이콘 비활성화
+            VCountQ++;
+            //Vcount체크
+            if (VCountQ >= 1 && VCountW >= 1 && VCountE >= 1 && VCountR >= 1)
+            {
+                uImanager.Vchange(true);
+            }
         }
         else anim.SetBool("isShooting", false);
 
@@ -105,6 +115,12 @@ public class Player : MonoBehaviour
             bulletmanager.SkillW();
             anim.SetBool("isShooting", true);
             WCount = 0; //횟수 0으로 만들어주기
+            VCountW++;
+            //Vcount체크
+            if (VCountQ >= 1 && VCountW >= 1 && VCountE >= 1 && VCountR >= 1)
+            {
+                uImanager.Vchange(true);
+            }
             uImanager.Wchange(false); //UIManager에서 아이콘 비활성화
 
         }
@@ -117,6 +133,12 @@ public class Player : MonoBehaviour
             bulletmanager.SkillE();
             anim.SetBool("isShooting", true);
             ECount = 0; //횟수 0으로 만들어주기
+            VCountE++;
+            //Vcount체크
+            if (VCountQ >= 1 && VCountW >= 1 && VCountE >= 1 && VCountR >= 1)
+            {
+                uImanager.Vchange(true);
+            }
             uImanager.Echange(false); //UIManager에서 아이콘 비활성화
         }
         else anim.SetBool("isShooting", false);
@@ -128,10 +150,30 @@ public class Player : MonoBehaviour
             bulletmanager.SkillR();
             anim.SetBool("isShooting", true);
             RCount = 0; //횟수 0으로 만들어주기
+            //Vcount체크
+            VCountR++; if (VCountQ >= 1 && VCountW >= 1 && VCountE >= 1 && VCountR >= 1)
+            {
+                uImanager.Vchange(true);
+            }
             uImanager.Rchange(false); //UIManager에서 아이콘 비활성화
         }
         else anim.SetBool("isShooting", false);
+
+        //V를 누르면 V스킬 발동
+        if (Input.GetKeyDown(KeyCode.V) && Time.time > nextFireTime && VCountQ >= 1 && VCountW >=1 && VCountE >= 1 && VCountR >= 1) // Q,W,E,R 한번씩 눌렀을때
+        {
+            nextFireTime = Time.time + 1f / fireRate;
+            bulletmanager.SkillV();
+            anim.SetBool("isShooting", true);
+            VCountQ = 0; //횟수 0으로 만들어주기
+            VCountW = 0; //횟수 0으로 만들어주기
+            VCountE = 0; //횟수 0으로 만들어주기
+            VCountR = 0; //횟수 0으로 만들어주기
+            uImanager.Vchange(false); //UIManager에서 아이콘 비활성화
+        }
+        else anim.SetBool("isShooting", false);
     }
+
 
     void FixedUpdate()
     {
@@ -197,7 +239,7 @@ public class Player : MonoBehaviour
         {
             OnDamaged(collision.transform.position);
             anim.SetBool("isHit", true);
-        }
+        } 
         else anim.SetBool("isHit", false);
 
 

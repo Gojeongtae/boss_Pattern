@@ -12,6 +12,9 @@ public class UImanager : MonoBehaviour
     public GameObject Eoff;
     public GameObject Ron;
     public GameObject Roff;
+    public GameObject Von;
+    public GameObject Voff;
+
 
 
     //Q온/오프
@@ -71,5 +74,20 @@ public class UImanager : MonoBehaviour
             Ron.SetActive(true);
         }
     }
+    //V온/오프
+    public void Vchange(bool isVActive)
+    {
+        if (!isVActive)
+        {
+            Von.SetActive(false);
+            Voff.SetActive(true);
+        }
+        else
+        {
+            Voff.SetActive(false);
+            Von.SetActive(true);
+        }
+    }
+
 }
 
