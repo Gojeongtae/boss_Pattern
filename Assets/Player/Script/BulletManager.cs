@@ -14,15 +14,6 @@ public class BulletManager : MonoBehaviour
 
     public Transform spawnPos;
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 
     //일반공격
     public void normalAttack()

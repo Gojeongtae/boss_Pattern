@@ -9,6 +9,8 @@ TagManager:
   - EnemyDie
   - EnemyBullet
   - SkillQ
+  - HomingMissile
+  - SkillV
   layers:
   - Default
   - TransparentFX

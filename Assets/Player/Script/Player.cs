@@ -253,6 +253,14 @@ public class Player : MonoBehaviour
             anim.SetBool("isHit", true);
         }
         else anim.SetBool("isHit", false);
+
+        //유도미사일이랑 닿았을때
+        if (collision.gameObject.tag == "HomingMissile")
+        {
+            OnDamaged(collision.transform.position);
+            anim.SetBool("isHit", true);
+        }
+        else anim.SetBool("isHit", false);
     }
 
     //Ground 태그에서 벗어났을 때 호출
@@ -263,8 +271,6 @@ public class Player : MonoBehaviour
             isGrounded = false;
         }
     }
-
-
 
 
     //맞으면 반투명해짐 + 튕겨남
