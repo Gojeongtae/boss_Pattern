@@ -1,56 +1,45 @@
 using UnityEngine;
-using System.Collections;
 
 public class BossController : MonoBehaviour
 {
-    public Transform player; // 플레이어 트랜스폼
-    public GameObject missilePrefab; // 유도탄 프리팹
-    public float missileSpeed = 5f; // 유도탄 속도
-    public float missileRotationSpeed = 200f; // 유도탄 회전 속도
+    public GameObject bulletPrefab; // 유도탄 프리팹
+    public Transform target; // 목표물(플레이어 등)의 Transform
 
-    Animator anim;
+    public float fireInterval = 2f; // 발사 간격
+    public float bulletSpeed = 5f; // 유도탄 속도
+    private float timer = 0f;
 
-    void Start()
+    void Update()
     {
-        // 4초마다 FireMissile 함수를 호출
-        InvokeRepeating("FireMissile", 0f, 4f);
-        anim = gameObject.GetComponent<Animator>();
-    }
+        timer += Time.deltaTime;
 
-    void FireMissile()
-    {
-        // 플레이어 방향으로 유도탄을 발사
-        Vector2 playerDirection = (player.position - transform.position).normalized;
-        Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg);
-        GameObject missile = Instantiate(missilePrefab, transform.position, rotation);
-        anim.SetBool("isAttacking", true);
-        Invoke("StopAttackAnim", 2f);
-
-        // 유도탄에 속도와 회전 속도를 설정
-        Transform missileTransform = missile.transform;
-        float missileTravelTime = Vector2.Distance(missileTransform.position, player.position) / missileSpeed;
-
-        StartCoroutine(MoveMissile(missileTransform, player.position, missileTravelTime));
-    }
-    //공격애니메이션 중지
-    void StopAttackAnim()
-    {
-        anim.SetBool("isAttacking", false);
-    }
-
-    IEnumerator MoveMissile(Transform missileTransform, Vector2 targetPosition, float travelTime)
-    {
-        float elapsedTime = 0f;
-
-        while (elapsedTime < travelTime)
+        // 일정 간격으로 발사
+        if (timer >= fireInterval)
         {
-            // 유도탄을 직접 이동
-            missileTransform.position = Vector2.Lerp(missileTransform.position, targetPosition, elapsedTime / travelTime);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+            // 유도탄 발사 로직 호출
+            FireGuidedBullet();
 
-        // 유도탄 제거
-        Destroy(missileTransform.gameObject);
+            // 타이머 초기화
+            timer = 0f;
+        }
+    }
+
+    void FireGuidedBullet()
+    {
+        // 목표물이 없다면 발사하지 않음
+        if (target == null)
+            return;
+
+        // 보스에서 목표물까지의 상대 위치 벡터 계산
+        Vector2 relativePosition = target.position - transform.position;
+
+        // 유도탄 생성
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+
+        // 발사 방향 설정 (방향 벡터를 정규화하여 사용)
+        bullet.GetComponent<GuidedBullet>().SetDirection(relativePosition.normalized);
+
+        // 발사 속도, 파워 등 설정 (필요에 따라 조절)
+        bullet.GetComponent<GuidedBullet>().SetSpeed(bulletSpeed);
     }
 }

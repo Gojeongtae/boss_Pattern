@@ -1,16 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class enemy_bullet : MonoBehaviour
+public class GuidedBullet : MonoBehaviour
 {
+    private Vector2 direction;
+    private float speed;
+
 
     void Start()
     {
         // 일정 시간 후에 유도탄 파괴
-        Destroy(gameObject,3f);
+        Destroy(gameObject, 3f);
+    }
+    public void SetDirection(Vector2 dir)
+    {
+        direction = dir;
     }
 
+    public void SetSpeed(float s)
+    {
+        speed = s;
+    }
+
+    void Update()
+    {
+        // 목표 방향으로 이동
+        transform.Translate(direction * speed * Time.deltaTime);
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         // 플레이어와 충돌 시

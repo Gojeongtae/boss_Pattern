@@ -6150,10 +6150,10 @@ GameObject:
   - component: {fileID: 1573953184}
   - component: {fileID: 1573953183}
   - component: {fileID: 1573953182}
-  - component: {fileID: 1573953181}
   - component: {fileID: 1573953180}
   - component: {fileID: 1573953185}
   - component: {fileID: 1573953186}
+  - component: {fileID: 1573953187}
   m_Layer: 7
   m_Name: Boss
   m_TagString: Enemy
@@ -6207,22 +6207,6 @@ PolygonCollider2D:
       - {x: -0.92300946, y: -1.5519439}
       - {x: 0.16850205, y: -1.5473078}
       - {x: -0.092788294, y: -0.99167633}
---- !u!114 &1573953181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1573953179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7472b1494a04e3f43bc5937779dc9dce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1696063722}
-  missilePrefab: {fileID: 7031743009261812496, guid: 2759503d93b12684f9eb5044fb96ecc2, type: 3}
-  missileSpeed: 0.2
-  missileRotationSpeed: 0
 --- !u!50 &1573953182
 Rigidbody2D:
   serializedVersion: 4
@@ -6346,6 +6330,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 1000
   Qhit: {fileID: 7465769033293557565, guid: aedf954901efa0347b8ebb044c42608e, type: 3}
+--- !u!114 &1573953187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573953179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7472b1494a04e3f43bc5937779dc9dce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 7031743009261812496, guid: 2759503d93b12684f9eb5044fb96ecc2, type: 3}
+  target: {fileID: 1696063722}
+  fireInterval: 2
+  bulletSpeed: 10
 --- !u!1 &1643541679
 GameObject:
   m_ObjectHideFlags: 0
