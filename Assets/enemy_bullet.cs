@@ -8,7 +8,7 @@ public class enemy_bullet : MonoBehaviour
     void Start()
     {
         // 일정 시간 후에 유도탄 파괴
-        Destroy(gameObject, 3f);
+        Destroy(gameObject,3f);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -20,6 +20,7 @@ public class enemy_bullet : MonoBehaviour
             if (player != null)
             {
                 player.ChangeHealth(-5);
+                Destroy(gameObject);
             }
         }
     }

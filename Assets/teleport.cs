@@ -5,7 +5,7 @@ using UnityEngine;
 public class teleport : MonoBehaviour
 {
 
-    private bool canTeleport = true;
+    //private bool canTeleport;
     public GameObject portalRED;
     public GameObject portalred;
     public GameObject portalBLUE;
@@ -17,92 +17,177 @@ public class teleport : MonoBehaviour
     public GameObject portalPURPLE;
     public GameObject portalpurple;
 
+    //포탈 좀 부드럽게하기위해 플레이어와 거리계산
+    public GameObject Player;
+    public float distance;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        Player = GameObject.Find("Player");
 
 
     }
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    void OnTriggerStay2D(Collider2D other)
-    {
-        if (canTeleport && other.gameObject.tag == "Player")
+        distance = Vector3.Distance(Player.transform.position, gameObject.transform.position);
+        if (distance <= 0.2f)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log("aa");
-            switch (gameObject.name)
-            {
-                case "portalRED":
-                    Debug.Log("Teleporting from RED to red");
-                    other.transform.position = portalred.transform.position;
-                    StartCoroutine(TeleportCooldown());
-                    break;
 
-                case "portalred":
-                    Debug.Log("Teleporting from red to RED");
-                    other.transform.position = portalRED.transform.position;
-                    StartCoroutine(TeleportCooldown());
-                    break;
-                case "portalBLUE":
-                        Debug.Log("Teleporting from BLUE to blue");
-                        other.transform.position = portalblue.transform.position;
-                        StartCoroutine(TeleportCooldown());
+                switch (gameObject.name)
+                {
+                    case "portalRED":
+                        if (Player.GetComponent<Player>().RedCooltime)
+                        {
+                            Player.GetComponent<Player>().RedCooltime = false;
+                            Player.transform.position = portalred.transform.position;
+                            Player.GetComponent<Player>().QCount++;
+
+                            //빨간텔포를 3번이용하면 UI에서 Q활성화
+                            if (Player.GetComponent<Player>().QCount >= 3)
+                            {
+                                Player.GetComponent<Player>().uImanager.Qchange(true);
+                            }
+
+                            Debug.Log(Player.GetComponent<Player>().QCount);
+                            StartCoroutine(TeleportCooldown("Red", Player.GetComponent<Player>()));
+                        }
                         break;
-                case "portalblue":
-                        Debug.Log("Teleporting from blue to BLUE");
-                        other.transform.position = portalBLUE.transform.position;
-                        StartCoroutine(TeleportCooldown());
+
+                    case "portalred":
+                        if (Player.GetComponent<Player>().RedCooltime)
+                        {
+                            Player.GetComponent<Player>().RedCooltime = false;
+                            Player.transform.position = portalRED.transform.position;
+                            Player.GetComponent<Player>().QCount++;
+                            if (Player.GetComponent<Player>().QCount >= 3)
+                            {
+                                Player.GetComponent<Player>().uImanager.Qchange(true);
+                            }
+
+                            Debug.Log(Player.GetComponent<Player>().QCount);
+                            StartCoroutine(TeleportCooldown("Red", Player.GetComponent<Player>()));
+                        }
                         break;
-                case "portalYellow":
-                        Debug.Log("Teleporting from YELLOW to yellow");
-                        other.transform.position = portalyellow.transform.position;
-                        StartCoroutine(TeleportCooldown());
+
+                    case "portalBLUE":
+                        if (Player.GetComponent<Player>().BlueCooltime)
+                        {
+                            Player.GetComponent<Player>().BlueCooltime = false;
+                            Player.transform.position = portalblue.transform.position;
+                            Player.GetComponent<Player>().WCount++;
+                            Debug.Log(Player.GetComponent<Player>().WCount);
+                            StartCoroutine(TeleportCooldown("Blue", Player.GetComponent<Player>()));
+                        }
                         break;
+
+                    case "portalblue":
+                        if (Player.GetComponent<Player>().BlueCooltime)
+                        {
+                            Player.GetComponent<Player>().BlueCooltime = false;
+                            Player.transform.position = portalBLUE.transform.position;
+                            Player.GetComponent<Player>().WCount++;
+                            Debug.Log(Player.GetComponent<Player>().WCount);
+                            StartCoroutine(TeleportCooldown("Blue", Player.GetComponent<Player>()));
+                        }
+                        break;
+
+                    case "portalYellow":
+                        if (Player.GetComponent<Player>().YellowCooltime)
+                        {
+                            Player.GetComponent<Player>().YellowCooltime = false;
+                            Player.transform.position = portalyellow.transform.position;
+                            Player.GetComponent<Player>().ECount++;
+                            Debug.Log(Player.GetComponent<Player>().ECount);
+                            StartCoroutine(TeleportCooldown("Yellow", Player.GetComponent<Player>()));
+                        }
+                        break;
+
                     case "portalyellow":
-                        Debug.Log("Teleporting from yellow to YELLOW");
-                        other.transform.position = portalYELLOW.transform.position;
-                        StartCoroutine(TeleportCooldown());
+                        if (Player.GetComponent<Player>().YellowCooltime)
+                        {
+                            Player.GetComponent<Player>().YellowCooltime = false;
+                            Player.transform.position = portalYELLOW.transform.position;
+                            Player.GetComponent<Player>().ECount++;
+                            Debug.Log(Player.GetComponent<Player>().ECount);
+                            StartCoroutine(TeleportCooldown("Yellow", Player.GetComponent<Player>()));
+                        }
                         break;
+
                     case "portalGREEN":
-                        Debug.Log("Teleporting from GREEN to green");
-                        other.transform.position = portalgreen.transform.position;
-                        StartCoroutine(TeleportCooldown());
+                        if (Player.GetComponent<Player>().GreenCooltime)
+                        {
+                            Player.GetComponent<Player>().GreenCooltime = false;
+                            Player.transform.position = portalgreen.transform.position;
+                            Player.GetComponent<Player>().RCount++;
+                            Debug.Log(Player.GetComponent<Player>().RCount);
+                            StartCoroutine(TeleportCooldown("Green", Player.GetComponent<Player>()));
+                        }
                         break;
+
                     case "portalgreen":
-                        Debug.Log("Teleporting from green to GREEN");
-                        other.transform.position = portalgreen.transform.position;
-                        StartCoroutine(TeleportCooldown());
+                        if (Player.GetComponent<Player>().GreenCooltime)
+                        {
+                            Player.GetComponent<Player>().GreenCooltime = false;
+                            Player.transform.position = portalGREEN.transform.position;
+                            Player.GetComponent<Player>().RCount++;
+                            Debug.Log(Player.GetComponent<Player>().RCount);
+                            StartCoroutine(TeleportCooldown("Green", Player.GetComponent<Player>()));
+                        }
                         break;
+
                     case "portalPURPLE":
-                        Debug.Log("Teleporting from PURPLE to purple");
-                        other.transform.position = portalpurple.transform.position;
-                        StartCoroutine(TeleportCooldown());
+                        if (Player.GetComponent<Player>().PurpleCooltime)
+                        {
+                            Player.GetComponent<Player>().PurpleCooltime = false;
+                            Player.transform.position = portalpurple.transform.position;
+                            StartCoroutine(TeleportCooldown("Purple", Player.GetComponent<Player>()));
+                        }
                         break;
+
                     case "portalpurple":
-                        Debug.Log("Teleporting from purple to PURPLE");
-                        other.transform.position = portalPURPLE.transform.position;
-                        StartCoroutine(TeleportCooldown());
+                        if (Player.GetComponent<Player>().PurpleCooltime)
+                        {
+                            Player.GetComponent<Player>().PurpleCooltime = false;
+                            Player.transform.position = portalPURPLE.transform.position;
+                            StartCoroutine(TeleportCooldown("Purple", Player.GetComponent<Player>()));
+                        }
                         break;
-
-
                 }
+
             }
         }
 
-    }
 
-    IEnumerator TeleportCooldown()
-    {
-        canTeleport = false;
-        yield return new WaitForSeconds(3f);
-        canTeleport = true;
+        //텔레포트 쿨타임
+        IEnumerator TeleportCooldown(string Color, Player player)
+        {
+            yield return new WaitForSeconds(1f);
+
+            if (Color == "Red")
+            {
+                player.RedCooltime = true;
+            }
+            else if (Color == "Blue")
+            {
+                player.BlueCooltime = true;
+            }
+            else if (Color == "Yellow")
+            {
+                player.YellowCooltime = true;
+            }
+            else if (Color == "Green")
+            {
+                player.GreenCooltime = true;
+            }
+            else if (Color == "Purple")
+            {
+                player.PurpleCooltime = true;
+            }
+        }
     }
 }
