@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Enemy
   - EnemyDie
+  - EnemyBullet
+  - SkillQ
   layers:
   - Default
   - TransparentFX
@@ -19,8 +21,8 @@ TagManager:
   - Player
   - PlayerDamaged
   - EnemyDIe
-  - 
-  - 
+  - EnemyBullet
+  - SkillQ
   - 
   - 
   - 

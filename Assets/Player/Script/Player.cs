@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public int maxHP;
     //캐릭터 현재 체력
     int currentHP;
+    //피격시 무적시간설정
+    public float invincibleTime;
 
     //캐릭터 이동속도
     public float moveSpeed = 3f;
@@ -20,18 +22,28 @@ public class Player : MonoBehaviour
     //더블점프 방지를 위한 바닥체크
     private bool isGrounded;
 
-    //총알 공격력
-    public int BulletDmg;
-    //총알생성
-    public Transform BulletSpawnPos;
-    public GameObject bulletPrefab;
-    //총알속도
-    public float bulletSpeed = 10f;
+
     //총알 발사간격
     public float fireRate = 0.5f;
     //총알 딜레이?
     private float nextFireTime = 0f;
 
+    //텔포이동횟수count(teleport 스크립트에서 관리)
+    public int QCount = 0;
+    public int WCount = 0;
+    public int ECount = 0;
+    public int RCount = 0;
+
+    //포탈별 쿨타임 갖고있도록
+    public bool RedCooltime = true;
+    public bool BlueCooltime = true;
+    public bool YellowCooltime = true;
+    public bool GreenCooltime = true;
+    public bool PurpleCooltime = true;
+
+    //각 매니저들 불러오기
+    public BulletManager bulletmanager;
+    public UImanager uImanager;
 
     Rigidbody2D rigid;
     Animator anim;
@@ -40,7 +52,6 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BulletDmg = 10;
         rigid = gameObject.GetComponent<Rigidbody2D>();
         anim = gameObject.GetComponentInChildren<Animator>();
         renderer = gameObject.GetComponentInChildren<SpriteRenderer>();
@@ -71,8 +82,53 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X) && Time.time > nextFireTime)
         {
             nextFireTime = Time.time + 1f / fireRate;
-            Shoot();
+            bulletmanager.normalAttack();
             anim.SetBool("isShooting", true);
+        }
+        else anim.SetBool("isShooting", false);
+
+        //Q를 누르면 Q스킬 발동
+        if (Input.GetKeyDown(KeyCode.Q) && Time.time > nextFireTime && QCount >= 3) //빨간텔포 3회 이용시
+        {
+            nextFireTime = Time.time + 1f / fireRate;
+            bulletmanager.SkillQ();
+            anim.SetBool("isShooting", true);
+            QCount = 0; //횟수 0으로 만들어주기
+            uImanager.Qchange(false); //UIManager에서 아이콘 비활성화
+        }
+        else anim.SetBool("isShooting", false);
+
+        //W를 누르면 W스킬 발동
+        if (Input.GetKeyDown(KeyCode.W) && Time.time > nextFireTime && WCount >= 3) //파란텔포 3회 이용시
+        {
+            nextFireTime = Time.time + 1f / fireRate;
+            bulletmanager.SkillW();
+            anim.SetBool("isShooting", true);
+            WCount = 0; //횟수 0으로 만들어주기
+            uImanager.Wchange(false); //UIManager에서 아이콘 비활성화
+
+        }
+        else anim.SetBool("isShooting", false);
+
+        //E를 누르면 E스킬 발동
+        if (Input.GetKeyDown(KeyCode.E) && Time.time > nextFireTime && ECount >= 4) //노란텔포 4회 이용시
+        {
+            nextFireTime = Time.time + 1f / fireRate;
+            bulletmanager.SkillE();
+            anim.SetBool("isShooting", true);
+            ECount = 0; //횟수 0으로 만들어주기
+            uImanager.Echange(false); //UIManager에서 아이콘 비활성화
+        }
+        else anim.SetBool("isShooting", false);
+
+        //R를 누르면 R스킬 발동
+        if (Input.GetKeyDown(KeyCode.R) && Time.time > nextFireTime && RCount >= 5) //초록텔포 5회 이용시
+        {
+            nextFireTime = Time.time + 1f / fireRate;
+            bulletmanager.SkillR();
+            anim.SetBool("isShooting", true);
+            RCount = 0; //횟수 0으로 만들어주기
+            uImanager.Rchange(false); //UIManager에서 아이콘 비활성화
         }
         else anim.SetBool("isShooting", false);
     }
@@ -144,6 +200,17 @@ public class Player : MonoBehaviour
         }
         else anim.SetBool("isHit", false);
 
+
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        //적 총알이랑 닿았을때
+        if (collision.gameObject.tag == "EnemyBullet")
+        {
+            OnDamaged(collision.transform.position);
+            anim.SetBool("isHit", true);
+        }
+        else anim.SetBool("isHit", false);
     }
 
     //Ground 태그에서 벗어났을 때 호출
@@ -155,14 +222,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    //총알생성
-    void Shoot()
-    {
-        GameObject bullet = Instantiate(bulletPrefab, BulletSpawnPos.position, Quaternion.identity);
-    }
 
 
-    //보스에 맞으면 반투명해짐 + 튕겨남
+
+    //맞으면 반투명해짐 + 튕겨남
     void OnDamaged(Vector2 targetPos)
     {
         //레이어 체인지
@@ -172,10 +235,11 @@ public class Player : MonoBehaviour
         //튕겨남
         int dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
         rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
-        
         //무적시간
-        Invoke("OffDamaged", 3);
+        Invoke("OffDamaged", invincibleTime);
     }
+
+    //무적시간해제
     void OffDamaged()
     {
         gameObject.layer = 8;
@@ -183,11 +247,10 @@ public class Player : MonoBehaviour
     }
 
 
-    //체력변경
+    //체력바 UI변경
     public void ChangeHealth(int amount)
     {
         currentHP = Mathf.Clamp(currentHP + amount, 0, maxHP);
-
         UIHealthBar.instance.SetValue(currentHP / (float)maxHP);
     }
 
