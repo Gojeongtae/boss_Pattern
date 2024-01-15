@@ -41,10 +41,12 @@ public class Bullet : MonoBehaviour
         if (!m_PlayerLookRight)
         {
             transform.Translate(Vector2.right * speed * Time.deltaTime);
+            transform.localScale = new Vector3(-1, 1, 1);
         }
         else
         {
             transform.Translate(Vector2.right * -1 * speed * Time.deltaTime);
+            transform.localScale = new Vector3(1, 1, 1);
         }
 
         //Àû°ú ºÎµúÈû ÆÇ´Ü
