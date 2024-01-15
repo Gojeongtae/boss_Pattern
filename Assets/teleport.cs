@@ -80,6 +80,13 @@ public class teleport : MonoBehaviour
                             Player.GetComponent<Player>().BlueCooltime = false;
                             Player.transform.position = portalblue.transform.position;
                             Player.GetComponent<Player>().WCount++;
+
+                            //파란텔포를 3번이용하면 UI에서 Q활성화
+                            if (Player.GetComponent<Player>().WCount >= 3)
+                            {
+                                Player.GetComponent<Player>().uImanager.Wchange(true);
+                            }
+
                             Debug.Log(Player.GetComponent<Player>().WCount);
                             StartCoroutine(TeleportCooldown("Blue", Player.GetComponent<Player>()));
                         }
@@ -91,6 +98,13 @@ public class teleport : MonoBehaviour
                             Player.GetComponent<Player>().BlueCooltime = false;
                             Player.transform.position = portalBLUE.transform.position;
                             Player.GetComponent<Player>().WCount++;
+
+                            //파란텔포를 3번이용하면 UI에서 W활성화
+                            if (Player.GetComponent<Player>().WCount >= 3)
+                            {
+                                Player.GetComponent<Player>().uImanager.Wchange(true);
+                            }
+
                             Debug.Log(Player.GetComponent<Player>().WCount);
                             StartCoroutine(TeleportCooldown("Blue", Player.GetComponent<Player>()));
                         }
@@ -102,6 +116,13 @@ public class teleport : MonoBehaviour
                             Player.GetComponent<Player>().YellowCooltime = false;
                             Player.transform.position = portalyellow.transform.position;
                             Player.GetComponent<Player>().ECount++;
+
+                            //노란텔포를 3번이용하면 UI에서 E활성화
+                            if (Player.GetComponent<Player>().ECount >= 4)
+                            {
+                                Player.GetComponent<Player>().uImanager.Echange(true);
+                            }
+
                             Debug.Log(Player.GetComponent<Player>().ECount);
                             StartCoroutine(TeleportCooldown("Yellow", Player.GetComponent<Player>()));
                         }
@@ -113,6 +134,13 @@ public class teleport : MonoBehaviour
                             Player.GetComponent<Player>().YellowCooltime = false;
                             Player.transform.position = portalYELLOW.transform.position;
                             Player.GetComponent<Player>().ECount++;
+
+                            //노란텔포를 3번이용하면 UI에서 E활성화
+                            if (Player.GetComponent<Player>().ECount >= 4)
+                            {
+                                Player.GetComponent<Player>().uImanager.Echange(true);
+                            }
+
                             Debug.Log(Player.GetComponent<Player>().ECount);
                             StartCoroutine(TeleportCooldown("Yellow", Player.GetComponent<Player>()));
                         }
@@ -124,6 +152,13 @@ public class teleport : MonoBehaviour
                             Player.GetComponent<Player>().GreenCooltime = false;
                             Player.transform.position = portalgreen.transform.position;
                             Player.GetComponent<Player>().RCount++;
+
+                            //초록텔포를 3번이용하면 UI에서 R활성화
+                            if (Player.GetComponent<Player>().RCount >= 5)
+                            {
+                                Player.GetComponent<Player>().uImanager.Rchange(true);
+                            }
+
                             Debug.Log(Player.GetComponent<Player>().RCount);
                             StartCoroutine(TeleportCooldown("Green", Player.GetComponent<Player>()));
                         }
@@ -135,6 +170,13 @@ public class teleport : MonoBehaviour
                             Player.GetComponent<Player>().GreenCooltime = false;
                             Player.transform.position = portalGREEN.transform.position;
                             Player.GetComponent<Player>().RCount++;
+
+                            //초록텔포를 3번이용하면 UI에서 R활성화
+                            if (Player.GetComponent<Player>().RCount >= 5)
+                            {
+                                Player.GetComponent<Player>().uImanager.Rchange(true);
+                            }
+
                             Debug.Log(Player.GetComponent<Player>().RCount);
                             StartCoroutine(TeleportCooldown("Green", Player.GetComponent<Player>()));
                         }
