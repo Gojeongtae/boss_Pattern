@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     //적 체력
     public int maxHP;
     //적 현재 체력
-    int currentHP;
+    public int currentHP;
 
     public GameObject Qhit;
 
