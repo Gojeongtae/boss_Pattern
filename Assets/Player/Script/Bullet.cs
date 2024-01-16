@@ -63,6 +63,22 @@ public class Bullet : MonoBehaviour
                 }
                 DestroyBullet();
             }
+            //(ÆÛÁñ)°¡½Ã¿Í ºÎµúÈû
+            else if (ray.collider.tag == "Thorn")
+            {
+                Thorn thorn = ray.collider.gameObject.GetComponent<Thorn>();
+                //ray.collider.gameObject.GetComponent<Thorn>().hitThorn();
+                //if (thorn != null)
+                //{
+                //    thorn.ChangeHealth(1);
+                //}
+                Destroy(gameObject);
+            }
+            //(ÆÛÁñ)º®°ú ºÎµúÈû
+            else if (ray.collider.tag == "Wall")
+            {
+                Destroy(gameObject);
+            }
         }
     }
     void DestroyBullet()

@@ -14,7 +14,7 @@ public class CannonController : MonoBehaviour
         StartCoroutine(FireMissilesWithDelay());
     }
 
-    IEnumerator FireMissilesWithDelay()
+    public IEnumerator FireMissilesWithDelay()
     {
         // 1, 2, 3 번째에서 포탄 발사
         for (int i = 0; i < 3; i++)

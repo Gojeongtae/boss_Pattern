@@ -11,6 +11,9 @@ TagManager:
   - SkillQ
   - HomingMissile
   - SkillV
+  - Bullet
+  - Thorn
+  - Wall
   layers:
   - Default
   - TransparentFX

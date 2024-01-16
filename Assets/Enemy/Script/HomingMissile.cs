@@ -13,6 +13,9 @@ public class HomingMissile : MonoBehaviour
     public LayerMask isLayer;
     public int damage;
 
+    //미사일 폭발 이펙트
+    public GameObject boom;
+
 
     Rigidbody2D rigid;
 
@@ -20,6 +23,11 @@ public class HomingMissile : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+
+        //3초 뒤 미사일 제거
+        Destroy(gameObject, 5);
+
+        Invoke("effect", 4.99f);
     }
 
 
@@ -35,34 +43,9 @@ public class HomingMissile : MonoBehaviour
 
         rigid.velocity = transform.right * speed;//미사일이 오른쪽을 향함
 
-        ////플레이어와 부딪힘 판단
-        //RaycastHit2D ray = Physics2D.Raycast(transform.position, transform.right, distance, isLayer);
-        //if (ray.collider)
-        //{
-        //    if (ray.collider.tag == "Player")
-        //    {
-        //        Player player = ray.collider.gameObject.GetComponent<Player>();
-        //        if (player != null)
-        //        {
-        //            player.ChangeHealth(-damage); //플레이어 체력을 -damge만큼 감소시킴
-        //            Debug.Log(damage);
-        //        }
-        //        DestroyMissile();
-        //        Effect();
-        //    }
-        //}
+
     }
 
-    //void DestroyMissile()
-    //{
-    //    Destroy(gameObject);
-    //}
-
-    //void Effect()
-    //{
-    //    Instantiate(hiteffect, transform.position, transform.rotation);
-    //    Destroy(hiteffect,2);
-    //}
     void OnTriggerEnter2D(Collider2D collision)
     {
         // 플레이어와 충돌 시
@@ -76,9 +59,10 @@ public class HomingMissile : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        //void DestroyEffect()
-        //{
-        //    Destroy(hiteffect, 1);
-        //}
+    }
+    void effect()
+    {
+        GameObject boomeffect = Instantiate(boom, transform.position, transform.rotation);
+        Destroy(boomeffect, 0.5f);
     }
 }

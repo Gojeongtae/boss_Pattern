@@ -260,6 +260,7 @@ public class Player : MonoBehaviour
         {
             OnDamaged(collision.transform.position);
             anim.SetBool("isHit", true);
+            //오브젝트를 지워주기(프리팹이아니라)
             GameObject effect = Instantiate(missilehit, transform.position, transform.rotation);
             Destroy(effect, 0.5f);
         }
@@ -277,7 +278,7 @@ public class Player : MonoBehaviour
 
 
     //맞으면 반투명해짐 + 튕겨남
-    void OnDamaged(Vector2 targetPos)
+    public void OnDamaged(Vector2 targetPos)
     {
         //레이어 체인지
         gameObject.layer = 9;

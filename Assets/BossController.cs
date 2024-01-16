@@ -29,6 +29,12 @@ public class BossController : MonoBehaviour
         // 목표물이 없다면 발사하지 않음
         if (target == null)
             return;
+        
+        //퍼즐페이즈가 true일때 공격하지 않음
+        if (gameObject.GetComponent<Enemy>().isPuzzlePhase == true)
+        {
+            return;
+        }
 
         // 보스에서 목표물까지의 상대 위치 벡터 계산
         Vector2 relativePosition = target.position - transform.position;

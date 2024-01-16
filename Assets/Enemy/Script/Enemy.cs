@@ -7,7 +7,8 @@ public class Enemy : MonoBehaviour
     //적 체력
     public int maxHP;
     //적 현재 체력
-    int currentHP;
+    public int currentHP;
+    public bool isPuzzlePhase;
 
     public GameObject Qhit;
 
@@ -21,6 +22,7 @@ public class Enemy : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         currentHP = maxHP;
         anim = GetComponent<Animator>();
+        isPuzzlePhase = false;
     }
 
     // Update is called once per frame
@@ -34,7 +36,6 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject, 2);
             anim.SetBool("isDead", true);
         }
-        
 
     }
 
@@ -69,5 +70,6 @@ public class Enemy : MonoBehaviour
         Enemy_UIHealthBar.instance.SetValue(currentHP / (float)maxHP);
         Debug.Log(currentHP);
     }
+
 
 }
