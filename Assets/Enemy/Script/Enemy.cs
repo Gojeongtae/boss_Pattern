@@ -52,6 +52,13 @@ public class Enemy : MonoBehaviour
             Instantiate(Qhit,transform.position, Quaternion.identity);
             Destroy(gameObject,2);
         }
+
+        //SkillV를 맞으면 피격애니메이션 재생(작동안함)
+        else if (other.gameObject.tag == "SkillV")
+        {
+            anim.SetBool("isHit", true);
+        }
+        else anim.SetBool("isHit", false);
     }
 
     //적 체력UI 변경
