@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
         }
 
         //SkillV를 맞으면 피격애니메이션 재생(작동안함)
-        if (other.gameObject.tag == "SkillV")
+        else if (other.gameObject.tag == "SkillV")
         {
             anim.SetBool("isHit", true);
         }

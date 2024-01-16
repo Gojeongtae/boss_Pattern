@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     //더블점프 방지를 위한 바닥체크
     private bool isGrounded;
 
+    //미사일 충돌이펙트
+    public GameObject missilehit;
 
     //총알 발사간격
     public float fireRate = 0.5f;
@@ -252,13 +254,14 @@ public class Player : MonoBehaviour
             OnDamaged(collision.transform.position);
             anim.SetBool("isHit", true);
         }
-        else anim.SetBool("isHit", false);
 
-        //유도미사일이랑 닿았을때
-        if (collision.gameObject.tag == "HomingMissile")
+        //유도미사일이랑 닿았을때  
+        else if (collision.gameObject.tag == "HomingMissile")
         {
             OnDamaged(collision.transform.position);
             anim.SetBool("isHit", true);
+            GameObject effect = Instantiate(missilehit, transform.position, transform.rotation);
+            Destroy(effect, 0.5f);
         }
         else anim.SetBool("isHit", false);
     }

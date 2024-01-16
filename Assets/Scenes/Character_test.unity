@@ -6899,6 +6899,7 @@ MonoBehaviour:
   moveSpeed: 5
   stoppingDrag: 10
   jumpPower: 10
+  missilehit: {fileID: 7465769033293557565, guid: aedf954901efa0347b8ebb044c42608e, type: 3}
   fireRate: 3
   QCount: 0
   WCount: 0
