@@ -1606,6 +1606,7 @@ MonoBehaviour:
   warningSprite: {fileID: 1657290763}
   missileSpeed: 5
   warningTime: 3
+  anim: {fileID: 1573953185}
 --- !u!4 &504573229
 Transform:
   m_ObjectHideFlags: 0
@@ -8291,10 +8292,10 @@ MonoBehaviour:
   target: {fileID: 1696063722}
   fireInterval: 2
   bulletSpeed: 5
-  isPattern3: 0
   homingmissile: {fileID: 2310873387372575240, guid: 83222392288fcae4abb6c83dbb9b31b4, type: 3}
   hominginterval: 5
   hommingtimer: 0
+  isPattern3: 0
 --- !u!1 &1643541679
 GameObject:
   m_ObjectHideFlags: 0
