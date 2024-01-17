@@ -14,7 +14,7 @@ public class Thorn : MonoBehaviour
 
     void Start()
     {
-        curThornhitcount = 0;
+        curThornhitcount = maxThornhitcount;
     }
 
     // Update is called once per frame
@@ -22,14 +22,14 @@ public class Thorn : MonoBehaviour
     {
 
     }
-    public void hitThorn()
-    {
-        curThornhitcount++;
-    }
-    //public void ChangeHealth(int amount)
+    //public void hitThorn()
     //{
-      //  curThornhitcount = Mathf.Clamp(curThornhitcount + amount, 0, maxThornhitcount);
-        //ThornHPbar.instance.SetValue(curThornhitcount / (float)maxThornhitcount);
+    //    curThornhitcount++;
     //}
+    public void ChangeHealth(int amount)
+    {
+       curThornhitcount = Mathf.Clamp(curThornhitcount + amount, 0, maxThornhitcount);
+       ThornHPbar.instance.SetValue(curThornhitcount / (float)maxThornhitcount);
+    }
 
 }
