@@ -2,50 +2,101 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
-    public GameObject bulletPrefab; // À¯µµÅº ÇÁ¸®ÆÕ
-    public Transform target; // ¸ñÇ¥¹°(ÇÃ·¹ÀÌ¾î µî)ÀÇ Transform
 
-    public float fireInterval = 2f; // ¹ß»ç °£°İ
-    public float bulletSpeed = 5f; // À¯µµÅº ¼Óµµ
+    public GameObject bulletPrefab; // ìœ ë„íƒ„ í”„ë¦¬íŒ¹
+    public Transform target; // ëª©í‘œë¬¼(í”Œë ˆì´ì–´ ë“±)ì˜ Transform
+
+    public float fireInterval = 2f; // ë°œì‚¬ ê°„ê²©
+    public float bulletSpeed = 5f; // ìœ ë„íƒ„ ì†ë„
     private float timer = 0f;
+
+    bool isPatter2 = false; //íŒ¨í„´ 2ì˜ ì—¬ë¶€
+
+
+    Enemy enemy; //ì—ë„ˆë¯¸ ìŠ¤í¬ë¦½íŠ¸ ì°¸ì¡°
+    CannonController cannon; //ìºë…¼ ì»¨íŠ¸ë¡¤ëŸ¬ ìŠ¤í¬ë¦½íŠ¸ ì°¸ì¡°
+
+
+    void Start()
+    {
+        enemy = FindObjectOfType<Enemy>();
+        cannon = FindObjectOfType<CannonController>();
+
+
+   
+    }
 
     void Update()
     {
+        // ê¸°ì¡´ Update ë©”ì„œë“œ ì½”ë“œ...
         timer += Time.deltaTime;
 
-        // ÀÏÁ¤ °£°İÀ¸·Î ¹ß»ç
+        // ì¼ì • ê°„ê²©ìœ¼ë¡œ ë°œì‚¬
         if (timer >= fireInterval)
         {
-            // À¯µµÅº ¹ß»ç ·ÎÁ÷ È£Ãâ
+            // ìœ ë„íƒ„ ë°œì‚¬ ë¡œì§ í˜¸ì¶œ
             FireGuidedBullet();
 
-            // Å¸ÀÌ¸Ó ÃÊ±âÈ­
+            // íƒ€ì´ë¨¸ ì´ˆê¸°í™”
             timer = 0f;
+        }
+        // ì²´ë ¥ì´ 2/3 ì´í•˜ì¸ ê²½ìš°
+        if (enemy.currentHP <= enemy.maxHP * 3 / 4)
+        {
+            DoPattern1();
+        }
+        // ì²´ë ¥ì´ 1/3 ì´í•˜ì¸ ê²½ìš°
+        else if (enemy.currentHP <= enemy.maxHP / 3)
+        {
+            // ë‹¤ë¥¸ ìŠ¤í¬ë¦½íŠ¸ì—ì„œ í˜¸ì¶œí•  í•¨ìˆ˜2 í˜¸ì¶œ
+            DoPattern2();
         }
     }
 
-    void FireGuidedBullet()
+    void FireGuidedBullet() // íŒ¨í„´ 1
     {
-        // ¸ñÇ¥¹°ÀÌ ¾ø´Ù¸é ¹ß»çÇÏÁö ¾ÊÀ½
+        // ëª©í‘œë¬¼ì´ ì—†ë‹¤ë©´ ë°œì‚¬í•˜ì§€ ì•ŠìŒ
         if (target == null)
             return;
         
-        //ÆÛÁñÆäÀÌÁî°¡ trueÀÏ¶§ °ø°İÇÏÁö ¾ÊÀ½
+        //í¼ì¦í˜ì´ì¦ˆê°€ trueì¼ë•Œ ê³µê²©í•˜ì§€ ì•ŠìŒ
         if (gameObject.GetComponent<Enemy>().isPuzzlePhase == true)
         {
             return;
         }
+        if (isPatter2 == true)
+            return;
 
-        // º¸½º¿¡¼­ ¸ñÇ¥¹°±îÁöÀÇ »ó´ë À§Ä¡ º¤ÅÍ °è»ê
+        // ë³´ìŠ¤ì—ì„œ ëª©í‘œë¬¼ê¹Œì§€ì˜ ìƒëŒ€ ìœ„ì¹˜ ë²¡í„° ê³„ì‚°
         Vector2 relativePosition = target.position - transform.position;
 
-        // À¯µµÅº »ı¼º
+        // ìœ ë„íƒ„ ìƒì„±
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
-        // ¹ß»ç ¹æÇâ ¼³Á¤ (¹æÇâ º¤ÅÍ¸¦ Á¤±ÔÈ­ÇÏ¿© »ç¿ë)
+        // ë°œì‚¬ ë°©í–¥ ì„¤ì • (ë°©í–¥ ë²¡í„°ë¥¼ ì •ê·œí™”í•˜ì—¬ ì‚¬ìš©)
         bullet.GetComponent<GuidedBullet>().SetDirection(relativePosition.normalized);
 
-        // ¹ß»ç ¼Óµµ, ÆÄ¿ö µî ¼³Á¤ (ÇÊ¿ä¿¡ µû¶ó Á¶Àı)
+        // ë°œì‚¬ ì†ë„, íŒŒì›Œ ë“± ì„¤ì • (í•„ìš”ì— ë”°ë¼ ì¡°ì ˆ)
         bullet.GetComponent<GuidedBullet>().SetSpeed(bulletSpeed);
     }
+
+    // ì²´ë ¥ì´ 2/3 ì´í•˜ì¼ ë•Œì˜ ë™ì‘
+    void DoPattern1()
+    {
+        if(isPatter2 == false)
+        {
+            // ìœ ë„íƒ„ ë°œì‚¬ ë˜ëŠ” í•„ìš”í•œ ì‘ì—… ìˆ˜í–‰
+            StartCoroutine(cannon.FireMissilesWithDelay());
+            isPatter2 = true;
+        }
+    }
+
+    // ì²´ë ¥ì´ 1/3 ì´í•˜ì¼ ë•Œì˜ ë™ì‘
+    void DoPattern2()
+    {
+        // ë‹¤ë¥¸ í•¨ìˆ˜ í˜¸ì¶œ ë˜ëŠ” í•„ìš”í•œ ì‘ì—… ìˆ˜í–‰
+    }
+
 }
+
+   

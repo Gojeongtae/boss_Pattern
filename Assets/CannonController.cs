@@ -6,12 +6,11 @@ public class CannonController : MonoBehaviour
     public Transform[] firePoints; // 포탄을 발사할 위치들
     public GameObject missilePrefab; // 포탄 프리팹
     public GameObject warningSprite; // 위험을 알리는 스프라이트
-    public float missileSpeed = 5f; // 포탄 속도
-    public float warningTime = 3f; // 알림 스프라이트가 보여지는 시간
+    public float missileSpeed = 15f; // 포탄 속도
+    public float warningTime = 1f; // 알림 스프라이트가 보여지는 시간
 
     void Start()
     {
-        StartCoroutine(FireMissilesWithDelay());
     }
 
     public IEnumerator FireMissilesWithDelay()
@@ -20,23 +19,23 @@ public class CannonController : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             yield return StartCoroutine(FireMissileFromPoint(firePoints[i]));
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
         }
 
         // 4, 5, 6 번째에서 포탄 발사
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         for (int i = 3; i < 6; i++)
         {
             yield return StartCoroutine(FireMissileFromPoint(firePoints[i]));
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
         }
 
         // 7, 8 번째에서 포탄 발사
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         for (int i = 6; i < 8; i++)
         {
             yield return StartCoroutine(FireMissileFromPoint(firePoints[i]));
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
@@ -63,13 +62,22 @@ public class CannonController : MonoBehaviour
         float elapsedTime = 0f;
         while (elapsedTime < warningTime)
         {
-            // 포탄을 직접 이동
-            missile.transform.Translate(missileSpeed * direction * Time.deltaTime);
+            // 파괴된 객체에 대한 참조를 체크하고 있음
+            if (missile != null)
+            {
+                // 포탄을 직접 이동
+                missile.transform.Translate(missileSpeed * 5 * direction * Time.deltaTime);
+            }
+
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // 포탄 제거
-        Destroy(missile);
+        // 파괴된 객체에 대한 참조를 체크하고 있음
+        if (missile != null)
+        {
+            // 포탄 제거
+            Destroy(missile);
+        }
     }
 }

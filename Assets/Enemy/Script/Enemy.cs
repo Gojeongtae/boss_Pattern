@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    //Àû Ã¼·Â
+    //ì  ì²´ë ¥
     public int maxHP;
-    //Àû ÇöÀç Ã¼·Â
+    //ì  í˜„ì¬ ì²´ë ¥
     public int currentHP;
     public bool isPuzzlePhase;
 
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Àû Ã¼·ÂÀÌ 0ÀÌµÇ¸é Á×À½Ã³¸®
+        //ì  ì²´ë ¥ì´ 0ì´ë˜ë©´ ì£½ìŒì²˜ë¦¬
         if (currentHP == 0)
         {
             gameObject.layer = 10;
@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    //ÇÃ·¹ÀÌ¾î¶û ºÎµúÈ÷¸é Ã¼·Â°¨¼Ò½ÃÅ´
+    //í”Œë ˆì´ì–´ë‘ ë¶€ë”ªíˆë©´ ì²´ë ¥ê°ì†Œì‹œí‚´
     void OnCollisionEnter2D(Collision2D other)
     {
         Player player = other.gameObject.GetComponent<Player>();
@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject,2);
         }
 
-        //SkillV¸¦ ¸ÂÀ¸¸é ÇÇ°İ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı(ÀÛµ¿¾ÈÇÔ)
+        //SkillVë¥¼ ë§ìœ¼ë©´ í”¼ê²©ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ(ì‘ë™ì•ˆí•¨)
         else if (other.gameObject.tag == "SkillV")
         {
             anim.SetBool("isHit", true);
@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
         else anim.SetBool("isHit", false);
     }
 
-    //Àû Ã¼·ÂUI º¯°æ
+    //ì  ì²´ë ¥UI ë³€ê²½
     public void EnemyChangeHealth(int amount)
     {
         currentHP = Mathf.Clamp(currentHP + amount, 0, maxHP);
