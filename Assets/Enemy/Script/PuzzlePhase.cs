@@ -25,7 +25,7 @@ public class PuzzlePhase : MonoBehaviour
 
     //ui활성화
     public GameObject puzzletimer; //남은시간
-    public GameObject thornHPbar; //가시
+    //public GameObject thornHPbar; //가시
 
     //플레이어 강제 이동 좌표
     public Transform PuzzlePhasePos;
@@ -45,7 +45,7 @@ public class PuzzlePhase : MonoBehaviour
     void Update()
     {
         //가시를 max회때렸을때 페이즈종료
-        if (Thorn.GetComponent<Thorn>().curThornhitcount >= Thorn.GetComponent<Thorn>().maxThornhitcount)
+        if (Thorn.GetComponent<Thorn>().curThornhitcount <= 0)
         {
             FinPhase();
             Thorn.GetComponent<Thorn>().curThornhitcount = 0;
@@ -59,7 +59,7 @@ public class PuzzlePhase : MonoBehaviour
     {
         //ui활성화
         puzzletimer.SetActive(true);//남은시간
-        thornHPbar.SetActive(true);//가시hp
+        //thornHPbar.SetActive(true);//가시hp
 
         //벽 활성화
         Wall1.SetActive(true);
@@ -95,7 +95,7 @@ public class PuzzlePhase : MonoBehaviour
     {
         //ui비활성화
         puzzletimer.SetActive(false);//남은시간
-        thornHPbar.SetActive(false); //가시
+        //thornHPbar.SetActive(false); //가시
 
         //벽 비활성화
         Wall1.SetActive(false);
