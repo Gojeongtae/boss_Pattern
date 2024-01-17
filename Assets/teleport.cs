@@ -36,8 +36,6 @@ public class teleport : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                //Debug.Log("aa");
-
                 switch (gameObject.name)
                 {
                     case "portalRED":
