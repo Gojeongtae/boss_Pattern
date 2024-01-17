@@ -44,6 +44,7 @@ public class PuzzlePhase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //가시를 max회때렸을때 페이즈종료
         if (Thorn.GetComponent<Thorn>().curThornhitcount >= Thorn.GetComponent<Thorn>().maxThornhitcount)
         {
             FinPhase();
