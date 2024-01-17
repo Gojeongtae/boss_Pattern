@@ -66,7 +66,7 @@ public class Bullet : MonoBehaviour
             else if (ray.collider.tag == "Thorn")
             {
                 Thorn thorn = ray.collider.gameObject.GetComponent<Thorn>();
-                //ray.collider.gameObject.GetComponent<Thorn>().hitThorn();
+                ray.collider.gameObject.GetComponent<Thorn>().hitThorn();
                 //if (thorn != null)
                 //{
                 //    thorn.ChangeHealth(1);
