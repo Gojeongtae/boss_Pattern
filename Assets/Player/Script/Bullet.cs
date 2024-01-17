@@ -59,7 +59,6 @@ public class Bullet : MonoBehaviour
                 if (enemy != null)
                 {
                     enemy.EnemyChangeHealth(-damage); //적 체력을 -damge만큼 감소시킴
-                    Debug.Log(damage);
                 }
                 DestroyBullet();
             }

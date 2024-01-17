@@ -68,8 +68,5 @@ public class Enemy : MonoBehaviour
         currentHP = Mathf.Clamp(currentHP + amount, 0, maxHP);
 
         Enemy_UIHealthBar.instance.SetValue(currentHP / (float)maxHP);
-        Debug.Log(currentHP);
     }
-
-
 }
