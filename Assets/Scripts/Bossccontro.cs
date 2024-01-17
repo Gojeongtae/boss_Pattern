@@ -49,7 +49,7 @@ public class Bossccontro : MonoBehaviour
         }
 
         hommingtimer += Time.deltaTime;
-        //호밍미사일발사(안됨)
+        //호밍미사일발사
         if (hommingtimer >= hominginterval)
         {
             // 호밍미사일 발사 로직 호출
@@ -59,17 +59,19 @@ public class Bossccontro : MonoBehaviour
             hommingtimer = 0f;
         }
 
+        // 체력이 2/3 (60%)이하인 경우
+        /*
+        if ((float)enemy.currentHP / (float)enemy.maxHP <= 0.6 )
+        {
+            // 다른 스크립트에서 호출할 함수2 호출
+            DoPattern1();
+        }
+        */
         // 체력이 1/3 (30%)이하인 경우
         if ((float)enemy.currentHP / (float)enemy.maxHP <= 0.3)
         {
             DoPattern2();
         }
-        // 체력이 2/3 (60%)이하인 경우
-        //else if ((float)enemy.currentHP / (float)enemy.maxHP <= 0.6 )
-        //{
-        //    // 다른 스크립트에서 호출할 함수2 호출
-        //    DoPattern1();
-        //}
     }
 
     void FireGuidedBullet() // 패턴 1
