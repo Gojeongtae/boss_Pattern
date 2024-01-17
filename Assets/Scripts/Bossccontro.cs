@@ -26,8 +26,13 @@ public class Bossccontro : MonoBehaviour
     public bool isPattern3 = false; //패턴3
     bool nomorepuzzle = true; //퍼즐 조건
 
+    //애니메이션
+    Animator anim;
+
     void Start()
     {
+
+        anim = GetComponent<Animator>();
         enemy = gameObject.GetComponent<Enemy>();
         cannon = FindObjectOfType<CannonController>();
         puzzle = gameObject.GetComponent<PuzzlePhase>();
@@ -51,6 +56,8 @@ public class Bossccontro : MonoBehaviour
         //호밍미사일발사
         if (hommingtimer >= hominginterval)
         {
+            anim.SetBool("isAttack", true);
+            Invoke("ChangeAnimationAfterDelay", 2f);
             // 호밍미사일 발사 로직 호출
             FireHoming();
             // 타이머 초기화
@@ -134,5 +141,11 @@ public class Bossccontro : MonoBehaviour
             nomorepuzzle = false;
         }
     }
+    private void ChangeAnimationAfterDelay()
+    {
+        // 3초 후에 애니메이션 상태 변경
 
+        // 변경된 Bool 값을 Animator에 전달
+        anim.SetBool("isAttack", false);
+    }
 }

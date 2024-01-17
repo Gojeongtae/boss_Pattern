@@ -65,8 +65,18 @@ public class Enemy : MonoBehaviour
     //적 체력UI 변경
     public void EnemyChangeHealth(int amount)
     {
+        anim.SetBool("isHit", true);
+        Invoke("ChangeAnimationAfterDelay", 0.15f);
         currentHP = Mathf.Clamp(currentHP + amount, 0, maxHP);
 
         Enemy_UIHealthBar.instance.SetValue(currentHP / (float)maxHP);
+    }
+
+    private void ChangeAnimationAfterDelay()
+    {
+        // 3초 후에 애니메이션 상태 변경
+
+        // 변경된 Bool 값을 Animator에 전달
+        anim.SetBool("isHit", false);
     }
 }

@@ -62,7 +62,6 @@ public class HomingMissile : MonoBehaviour
             if (player != null)
             {
                 player.ChangeHealth(-damage);
-                Debug.Log(damage);
                 Destroy(gameObject);
             }
         }

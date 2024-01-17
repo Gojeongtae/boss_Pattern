@@ -9,9 +9,10 @@ public class CannonController : MonoBehaviour
     public float missileSpeed = 15f; // 포탄 속도
     public float warningTime = 1f; // 알림 스프라이트가 보여지는 시간
 
+    public Animator anim;
     void Start()
     {
-
+        anim = FindObjectOfType<Animator>();
     }
 
     public IEnumerator FireMissilesWithDelay()
@@ -52,6 +53,7 @@ public class CannonController : MonoBehaviour
         // 알림 스프라이트를 비활성화
         warningSprite.SetActive(false);
 
+        anim.SetBool("isAttack", true);
         // 포탄을 발사할 위치에서의 방향을 기준으로 회전값 계산
         Vector2 direction = firePoint.right; // 발사 위치의 오른쪽 방향을 기준으로 설정
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
@@ -74,6 +76,7 @@ public class CannonController : MonoBehaviour
             yield return null;
         }
 
+        anim.SetBool("isAttack", false);
         // 파괴된 객체에 대한 참조를 체크하고 있음
         if (missile != null)
         {

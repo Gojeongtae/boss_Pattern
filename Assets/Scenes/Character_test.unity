@@ -1632,6 +1632,7 @@ MonoBehaviour:
   warningSprite: {fileID: 1657290763}
   missileSpeed: 5
   warningTime: 3
+  anim: {fileID: 1573953185}
 --- !u!4 &504573229
 Transform:
   m_ObjectHideFlags: 0
