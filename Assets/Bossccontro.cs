@@ -18,6 +18,7 @@ public class Bossccontro : MonoBehaviour
     //호밍미사일 관련
     public GameObject homingmissile; //호밍미사일 프리팹
     public float hominginterval = 5f; // 호밍미사일 발사간격
+    public float hommingtimer = 0f;
 
     Enemy enemy; //에너미 스크립트 참조
     CannonController cannon; //캐논 컨트롤러 스크립트 참조
@@ -46,20 +47,17 @@ public class Bossccontro : MonoBehaviour
             // 타이머 초기화
             timer = 0f;
         }
-        
+
+        hommingtimer += Time.deltaTime;
         //호밍미사일발사(안됨)
-        if (timer >= hominginterval)
+        if (hommingtimer >= hominginterval)
         {
             // 호밍미사일 발사 로직 호출
             FireHoming();
 
             // 타이머 초기화
-            timer = 0f;
+            hommingtimer = 0f;
         }
-
-
-
-
 
         // 체력이 1/3 (30%)이하인 경우
         if ((float)enemy.currentHP / (float)enemy.maxHP <= 0.3)
@@ -109,7 +107,8 @@ public class Bossccontro : MonoBehaviour
             return;
 
         //호밍미사일 생성
-        GameObject homing = Instantiate(homingmissile, transform.position, Quaternion.identity);
+        GameObject newPrefabInstance = Instantiate(homingmissile, transform.position, Quaternion.identity);
+
 
     }
 

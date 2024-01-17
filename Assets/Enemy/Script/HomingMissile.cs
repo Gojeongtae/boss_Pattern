@@ -22,6 +22,13 @@ public class HomingMissile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject player = GameObject.FindWithTag("Player");
+
+        if (player != null)
+        {
+            target = player.transform;
+        }
+
         rigid = GetComponent<Rigidbody2D>();
 
         //3초 뒤 미사일 제거
