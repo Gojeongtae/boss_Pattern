@@ -28,8 +28,8 @@ public class Thorn : MonoBehaviour
     }
     //public void ChangeHealth(int amount)
     //{
-    //    curThornhitcount = Mathf.Clamp(curThornhitcount + amount, 0, maxThornhitcount);
-    //    ThornHPbar.instance.SetValue(curThornhitcount / (float)maxThornhitcount);
+      //  curThornhitcount = Mathf.Clamp(curThornhitcount + amount, 0, maxThornhitcount);
+        //ThornHPbar.instance.SetValue(curThornhitcount / (float)maxThornhitcount);
     //}
 
 }
